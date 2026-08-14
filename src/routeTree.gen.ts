@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as ApiV1ChatRouteImport } from './routes/api/v1/chat'
 import { Route as ApiV1ModelsRouteImport } from './routes/api/v1/models'
 import { Route as ApiV1OcrRouteImport } from './routes/api/v1/ocr'
@@ -18,6 +19,11 @@ import { Route as ApiV1ImagesGenerateRouteImport } from './routes/api/v1/images/
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1ChatRoute = ApiV1ChatRouteImport.update({
@@ -43,6 +49,7 @@ const ApiV1ImagesGenerateRoute = ApiV1ImagesGenerateRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app'
     | '/api/v1/chat'
     | '/api/v1/models'
     | '/api/v1/ocr'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app'
     | '/api/v1/chat'
     | '/api/v1/models'
     | '/api/v1/ocr'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/app'
     | '/api/v1/chat'
     | '/api/v1/models'
     | '/api/v1/ocr'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRoute
   ApiV1ChatRoute: typeof ApiV1ChatRoute
   ApiV1ModelsRoute: typeof ApiV1ModelsRoute
   ApiV1OcrRoute: typeof ApiV1OcrRoute
@@ -102,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/chat': {
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRoute,
   ApiV1ChatRoute: ApiV1ChatRoute,
   ApiV1ModelsRoute: ApiV1ModelsRoute,
   ApiV1OcrRoute: ApiV1OcrRoute,
