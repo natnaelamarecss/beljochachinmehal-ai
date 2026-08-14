@@ -31,7 +31,7 @@ export async function streamChat(
     method: "POST",
     headers: { "Content-Type": "application/json", ...(await authHeaders()) },
     body: JSON.stringify(body),
-    signal,
+    signal: signal ?? null,
   });
 
   if (!res.ok) {
