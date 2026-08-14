@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppChatRouteImport } from './routes/app/chat'
+import { Route as AppOcrRouteImport } from './routes/app/ocr'
 import { Route as ApiV1ChatRouteImport } from './routes/api/v1/chat'
 import { Route as ApiV1ModelsRouteImport } from './routes/api/v1/models'
 import { Route as ApiV1OcrRouteImport } from './routes/api/v1/ocr'
@@ -36,6 +38,16 @@ const AuthRoute = AuthRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppChatRoute = AppChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppOcrRoute = AppOcrRouteImport.update({
+  id: '/ocr',
+  path: '/ocr',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const ApiV1ChatRoute = ApiV1ChatRouteImport.update({
@@ -63,6 +75,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/ocr': typeof AppOcrRoute
   '/app/': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
@@ -72,6 +86,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/ocr': typeof AppOcrRoute
   '/app': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
@@ -83,6 +99,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/ocr': typeof AppOcrRoute
   '/app/': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
@@ -95,6 +113,8 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/chat'
+    | '/app/ocr'
     | '/app/'
     | '/api/v1/chat'
     | '/api/v1/models'
@@ -104,6 +124,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/app/chat'
+    | '/app/ocr'
     | '/app'
     | '/api/v1/chat'
     | '/api/v1/models'
@@ -114,6 +136,8 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/chat'
+    | '/app/ocr'
     | '/app/'
     | '/api/v1/chat'
     | '/api/v1/models'
@@ -161,6 +185,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/chat': {
+      id: '/app/chat'
+      path: '/chat'
+      fullPath: '/app/chat'
+      preLoaderRoute: typeof AppChatRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/ocr': {
+      id: '/app/ocr'
+      path: '/ocr'
+      fullPath: '/app/ocr'
+      preLoaderRoute: typeof AppOcrRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/api/v1/chat': {
       id: '/api/v1/chat'
       path: '/api/v1/chat'
@@ -193,10 +231,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
+  AppChatRoute: typeof AppChatRoute
+  AppOcrRoute: typeof AppOcrRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppChatRoute: AppChatRoute,
+  AppOcrRoute: AppOcrRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
