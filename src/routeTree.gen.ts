@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/app/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as ApiV1ChatRouteImport } from './routes/api/v1/chat'
 import { Route as ApiV1ModelsRouteImport } from './routes/api/v1/models'
 import { Route as ApiV1OcrRouteImport } from './routes/api/v1/ocr'
@@ -25,6 +27,16 @@ const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
   path: '/app',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 const ApiV1ChatRoute = ApiV1ChatRouteImport.update({
   id: '/api/v1/chat',
@@ -49,7 +61,9 @@ const ApiV1ImagesGenerateRoute = ApiV1ImagesGenerateRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -57,7 +71,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteRoute
+  '/auth': typeof AuthRoute
+  '/app': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -66,7 +81,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRouteRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/': typeof AppIndexRoute
   '/api/v1/chat': typeof ApiV1ChatRoute
   '/api/v1/models': typeof ApiV1ModelsRoute
   '/api/v1/ocr': typeof ApiV1OcrRoute
@@ -77,6 +94,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/auth'
+    | '/app/'
     | '/api/v1/chat'
     | '/api/v1/models'
     | '/api/v1/ocr'
@@ -84,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/app'
     | '/api/v1/chat'
     | '/api/v1/models'
@@ -93,6 +113,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/auth'
+    | '/app/'
     | '/api/v1/chat'
     | '/api/v1/models'
     | '/api/v1/ocr'
@@ -101,7 +123,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRouteRoute: typeof AppRouteRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ApiV1ChatRoute: typeof ApiV1ChatRoute
   ApiV1ModelsRoute: typeof ApiV1ModelsRoute
   ApiV1OcrRoute: typeof ApiV1OcrRoute
@@ -123,6 +146,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/app'
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/api/v1/chat': {
       id: '/api/v1/chat'
@@ -155,9 +192,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppRouteRouteChildren {
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRouteRoute: AppRouteRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ApiV1ChatRoute: ApiV1ChatRoute,
   ApiV1ModelsRoute: ApiV1ModelsRoute,
   ApiV1OcrRoute: ApiV1OcrRoute,
