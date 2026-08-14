@@ -10,33 +10,197 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteRouteImport } from './routes/app/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppChatRouteImport } from './routes/app/chat'
+import { Route as AppImagesRouteImport } from './routes/app/images'
+import { Route as AppLiveRouteImport } from './routes/app/live'
+import { Route as AppOcrRouteImport } from './routes/app/ocr'
+import { Route as AppProjectsRouteImport } from './routes/app/projects'
+import { Route as AppSettingsRouteImport } from './routes/app/settings'
+import { Route as ApiV1ChatRouteImport } from './routes/api/v1/chat'
+import { Route as ApiV1ModelsRouteImport } from './routes/api/v1/models'
+import { Route as ApiV1OcrRouteImport } from './routes/api/v1/ocr'
+import { Route as ApiV1ImagesGenerateRouteImport } from './routes/api/v1/images/generate'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppChatRoute = AppChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppImagesRoute = AppImagesRouteImport.update({
+  id: '/images',
+  path: '/images',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppLiveRoute = AppLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppOcrRoute = AppOcrRouteImport.update({
+  id: '/ocr',
+  path: '/ocr',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProjectsRoute = AppProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const ApiV1ChatRoute = ApiV1ChatRouteImport.update({
+  id: '/api/v1/chat',
+  path: '/api/v1/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ModelsRoute = ApiV1ModelsRouteImport.update({
+  id: '/api/v1/models',
+  path: '/api/v1/models',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1OcrRoute = ApiV1OcrRouteImport.update({
+  id: '/api/v1/ocr',
+  path: '/api/v1/ocr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ImagesGenerateRoute = ApiV1ImagesGenerateRouteImport.update({
+  id: '/api/v1/images/generate',
+  path: '/api/v1/images/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/images': typeof AppImagesRoute
+  '/app/live': typeof AppLiveRoute
+  '/app/ocr': typeof AppOcrRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/': typeof AppIndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/images': typeof AppImagesRoute
+  '/app/live': typeof AppLiveRoute
+  '/app/ocr': typeof AppOcrRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app': typeof AppIndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/app/chat': typeof AppChatRoute
+  '/app/images': typeof AppImagesRoute
+  '/app/live': typeof AppLiveRoute
+  '/app/ocr': typeof AppOcrRoute
+  '/app/projects': typeof AppProjectsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/': typeof AppIndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/chat'
+    | '/app/images'
+    | '/app/live'
+    | '/app/ocr'
+    | '/app/projects'
+    | '/app/settings'
+    | '/app/'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/chat'
+    | '/app/images'
+    | '/app/live'
+    | '/app/ocr'
+    | '/app/projects'
+    | '/app/settings'
+    | '/app'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/chat'
+    | '/app/images'
+    | '/app/live'
+    | '/app/ocr'
+    | '/app/projects'
+    | '/app/settings'
+    | '/app/'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ApiV1ChatRoute: typeof ApiV1ChatRoute
+  ApiV1ModelsRoute: typeof ApiV1ModelsRoute
+  ApiV1OcrRoute: typeof ApiV1OcrRoute
+  ApiV1ImagesGenerateRoute: typeof ApiV1ImagesGenerateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +212,132 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/chat': {
+      id: '/app/chat'
+      path: '/chat'
+      fullPath: '/app/chat'
+      preLoaderRoute: typeof AppChatRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/images': {
+      id: '/app/images'
+      path: '/images'
+      fullPath: '/app/images'
+      preLoaderRoute: typeof AppImagesRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/live': {
+      id: '/app/live'
+      path: '/live'
+      fullPath: '/app/live'
+      preLoaderRoute: typeof AppLiveRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/ocr': {
+      id: '/app/ocr'
+      path: '/ocr'
+      fullPath: '/app/ocr'
+      preLoaderRoute: typeof AppOcrRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/projects': {
+      id: '/app/projects'
+      path: '/projects'
+      fullPath: '/app/projects'
+      preLoaderRoute: typeof AppProjectsRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/api/v1/chat': {
+      id: '/api/v1/chat'
+      path: '/api/v1/chat'
+      fullPath: '/api/v1/chat'
+      preLoaderRoute: typeof ApiV1ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/models': {
+      id: '/api/v1/models'
+      path: '/api/v1/models'
+      fullPath: '/api/v1/models'
+      preLoaderRoute: typeof ApiV1ModelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/ocr': {
+      id: '/api/v1/ocr'
+      path: '/api/v1/ocr'
+      fullPath: '/api/v1/ocr'
+      preLoaderRoute: typeof ApiV1OcrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/images/generate': {
+      id: '/api/v1/images/generate'
+      path: '/api/v1/images/generate'
+      fullPath: '/api/v1/images/generate'
+      preLoaderRoute: typeof ApiV1ImagesGenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AppRouteRouteChildren {
+  AppChatRoute: typeof AppChatRoute
+  AppImagesRoute: typeof AppImagesRoute
+  AppLiveRoute: typeof AppLiveRoute
+  AppOcrRoute: typeof AppOcrRoute
+  AppProjectsRoute: typeof AppProjectsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppChatRoute: AppChatRoute,
+  AppImagesRoute: AppImagesRoute,
+  AppLiveRoute: AppLiveRoute,
+  AppOcrRoute: AppOcrRoute,
+  AppProjectsRoute: AppProjectsRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ApiV1ChatRoute: ApiV1ChatRoute,
+  ApiV1ModelsRoute: ApiV1ModelsRoute,
+  ApiV1OcrRoute: ApiV1OcrRoute,
+  ApiV1ImagesGenerateRoute: ApiV1ImagesGenerateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
