@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiV1ChatRouteImport } from './routes/api/v1/chat'
+import { Route as ApiV1ModelsRouteImport } from './routes/api/v1/models'
+import { Route as ApiV1OcrRouteImport } from './routes/api/v1/ocr'
+import { Route as ApiV1ImagesGenerateRouteImport } from './routes/api/v1/images/generate'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1ChatRoute = ApiV1ChatRouteImport.update({
+  id: '/api/v1/chat',
+  path: '/api/v1/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ModelsRoute = ApiV1ModelsRouteImport.update({
+  id: '/api/v1/models',
+  path: '/api/v1/models',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1OcrRoute = ApiV1OcrRouteImport.update({
+  id: '/api/v1/ocr',
+  path: '/api/v1/ocr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1ImagesGenerateRoute = ApiV1ImagesGenerateRouteImport.update({
+  id: '/api/v1/images/generate',
+  path: '/api/v1/images/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/v1/chat': typeof ApiV1ChatRoute
+  '/api/v1/models': typeof ApiV1ModelsRoute
+  '/api/v1/ocr': typeof ApiV1OcrRoute
+  '/api/v1/images/generate': typeof ApiV1ImagesGenerateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/v1/chat'
+    | '/api/v1/models'
+    | '/api/v1/ocr'
+    | '/api/v1/images/generate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiV1ChatRoute: typeof ApiV1ChatRoute
+  ApiV1ModelsRoute: typeof ApiV1ModelsRoute
+  ApiV1OcrRoute: typeof ApiV1OcrRoute
+  ApiV1ImagesGenerateRoute: typeof ApiV1ImagesGenerateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/chat': {
+      id: '/api/v1/chat'
+      path: '/api/v1/chat'
+      fullPath: '/api/v1/chat'
+      preLoaderRoute: typeof ApiV1ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/models': {
+      id: '/api/v1/models'
+      path: '/api/v1/models'
+      fullPath: '/api/v1/models'
+      preLoaderRoute: typeof ApiV1ModelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/ocr': {
+      id: '/api/v1/ocr'
+      path: '/api/v1/ocr'
+      fullPath: '/api/v1/ocr'
+      preLoaderRoute: typeof ApiV1OcrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/images/generate': {
+      id: '/api/v1/images/generate'
+      path: '/api/v1/images/generate'
+      fullPath: '/api/v1/images/generate'
+      preLoaderRoute: typeof ApiV1ImagesGenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiV1ChatRoute: ApiV1ChatRoute,
+  ApiV1ModelsRoute: ApiV1ModelsRoute,
+  ApiV1OcrRoute: ApiV1OcrRoute,
+  ApiV1ImagesGenerateRoute: ApiV1ImagesGenerateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
